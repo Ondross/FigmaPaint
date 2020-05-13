@@ -1,14 +1,136 @@
-<h2>Red World</h2>
-<button id="red">Go Red</button>
-<button id="blue">Go Blue</button>
-<button id="cancel">Cancel</button>
-<script>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap" rel="stylesheet">
+</head>
 
-document.getElementById('red').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'go-red' } }, '*')
+<div class="section-title">Stroke Color</div>
+<div class="section-body">
+  <div id="black" class="color-option"><div class="circle"></div></div>
+  <div id="blue" class="color-option"><div class="circle"></div></div>
+  <div id="yellow" class="color-option"><div class="circle"></div></div>
+  <div id="green" class="color-option"><div class="circle"></div></div>
+  <div id="red" class="color-option"><div class="circle"></div></div>
+</div>
+<div class="section-divider"></div>
+
+<div class="section-title">Stroke Width</div>
+<div class="section-body">
+  <div id="width-1" class="stroke-option">
+    <div><span class="dot"></span></div>
+    <div>1px</div>
+  </div>
+  <div id="width-3" class="stroke-option">
+    <div><span class="dot dot-3"></span></div>
+    <div>3px</div>
+  </div>
+  <div id="width-5" class="stroke-option">
+    <div><span class="dot dot-5"></span></div>
+    <div>5px</div>
+  </div>
+  <div id="width-8" class="stroke-option">
+    <div><span class="dot dot-8"></span></div>
+    <div>8px</div>
+  </div>
+  <div id="width-10" class="stroke-option">
+    <div><span class="dot dot-10"></span></div>
+    <div>10px</div>
+  </div>
+</div>
+
+
+<script>
+document.getElementById('black').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-color', r: .2, g: .2, b: .2 } }, '*')
 }
 document.getElementById('blue').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'go-blue' } }, '*')
+  parent.postMessage({ pluginMessage: { type: 'set-color', r: .07, g: .63, b: .98 } }, '*')
 }
-
+document.getElementById('yellow').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-color', r: 1, g: .78, b: 0 } }, '*')
+}
+document.getElementById('green').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-color', r: .1, g: .76, b: .49 } }, '*')
+}
+document.getElementById('red').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-color', r: .94, g: .33, b: .20 } }, '*')
+}
+document.getElementById('width-1').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-width', width: 1 } }, '*')
+}
+document.getElementById('width-3').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-width', width: 3 } }, '*')
+}
+document.getElementById('width-5').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-width', width: 5 } }, '*')
+}
+document.getElementById('width-8').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-width', width: 8 } }, '*')
+}
+document.getElementById('width-10').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-width', width: 10 } }, '*')
+}
 </script>
+
+
+<style>
+  body {
+    font-family: 'Inter', Helvetica, sans-serif;
+    font-size: 11px;
+    margin: 0;
+    color: #333;
+  }
+  .section-title {
+    display: flex;
+    font-weight: 600;
+    padding: 8px 16px;
+  }
+  .section-body { 
+    display: flex;
+    margin-top: 8px; 
+    padding: 0px 16px; 
+    justify-content: space-between;
+  }
+  .section-divider {
+    display: flex;
+    height: 1px;
+    background-color: #E5E5E5;
+    margin: 24px 0 8px 0;
+  }
+  .color-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+  }
+  .color-option:hover { cursor: pointer; }
+  .circle {
+    display: flex;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #323232;
+  }
+  #blue .circle { background-color:#12A1FB; }
+  #yellow .circle { background-color: #FFC600; }
+  #green .circle { background-color: #1AC37D; }
+  #red .circle { background-color: #EF5533; }
+
+  .stroke-option:hover { cursor: pointer; }
+  .stroke-option div { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px; 
+    height: 20px; 
+  }
+  .dot {
+    display: flex;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background-color: #323232;
+  }
+  .dot-3 { width: 6px; height: 6px; }
+  .dot-5 { width: 10px; height: 10px; }
+  .dot-8 { width: 12px; height: 12px; }
+  .dot-10 { width: 16px; height: 16px; }
+</style>
