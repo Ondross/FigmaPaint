@@ -1,0 +1,14 @@
+<h2>Red World</h2>
+<button id="red">Go Red</button>
+<button id="blue">Go Blue</button>
+<button id="cancel">Cancel</button>
+<script>
+
+document.getElementById('red').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'go-red' } }, '*')
+}
+document.getElementById('blue').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'go-blue' } }, '*')
+}
+
+</script>
