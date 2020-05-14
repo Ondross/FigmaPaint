@@ -47,38 +47,57 @@
   </div> 
 </div>
 
+<div class="section-divider"></div>
+
+<div class="section-body">
+  <div class="section-row">
+    <i class="fas fa-pencil-alt"></i>
+    <i class="fas fa-spray-can"></i>
+    <div style="width: 100%; height: 40px;"></div>
+  </div>
+</div>
+
 <script>
 document.getElementById('blue').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: .07, g: .63, b: .98 } }, '*')
+  updateSelectedColor('blue')
 }
 document.getElementById('purple').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: .56, g: .49, b: 1 } }, '*')
+  updateSelectedColor('purple')
 }
 document.getElementById('yellow').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: 1, g: .78, b: 0 } }, '*')
+  updateSelectedColor('yellow')
 }
 document.getElementById('green').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: .1, g: .76, b: .49 } }, '*')
+  updateSelectedColor('green')
 }
 document.getElementById('red').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: .94, g: .33, b: .20 } }, '*')
+  updateSelectedColor('red')
 }
 document.getElementById('black').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: .2, g: .2, b: .2 } }, '*')
+  updateSelectedColor('black')
 }
 document.getElementById('gray').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: .46, g: .46, b: .46 } }, '*')
+  updateSelectedColor('gray')
 }
 document.getElementById('brown').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: .55, g: .38, b: .22 } }, '*')
+  updateSelectedColor('brown')
 }
 document.getElementById('white').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: 1, g: 1, b: 1 } }, '*')
+  updateSelectedColor('white')
 }
 document.getElementById('eraser').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'eraser' } }, '*')
+  updateSelectedColor('eraser')
 }
-
 document.getElementById('width-1').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-width', width: 1 } }, '*')
 }
@@ -94,6 +113,14 @@ document.getElementById('width-20').onclick = () => {
 document.getElementById('width-30').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-width', width: 30 } }, '*')
 }
+
+function updateSelectedColor(color) {
+  const elements = document.getElementsByClassName('color-option')
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].classList.remove('is-selected')
+  }
+  document.getElementById(color).classList.add('is-selected')
+}
 </script>
 
 <style>
@@ -103,9 +130,9 @@ document.getElementById('width-30').onclick = () => {
     margin: 0;
     color: #333;
   }
-  .fas { font-size: 22px; color: #757575; }
+  .fas { font-size: 22px; color: #AEAEAE; }
   .section-body { 
-    margin-top: 8px; 
+    margin-top: 24px; 
     padding: 0px 16px; 
   }
   .section-row {
@@ -116,23 +143,35 @@ document.getElementById('width-30').onclick = () => {
     display: flex;
     height: 1px;
     background-color: #E5E5E5;
-    margin: 24px 0;
+    margin: 24px 0 8px 0;
   }
   .color-option {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4px;
-    width: 28px;
-    height: 28px;
+    margin: 4px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid #FFF;
   }
   .color-option:hover { cursor: pointer; }
+
+  #blue.is-selected { border-color: #12A1FB; }
+  #purple.is-selected { border-color: #907CFF; }
+  #yellow.is-selected { border-color: #FFC600; }
+  #green.is-selected { border-color: #1AC37D; }
+  #red.is-selected { border-color: #EF5533; }
+  #black.is-selected { border-color: #000; }
+  #gray.is-selected { border-color: #757575; }
+  #brown.is-selected { border-color: #8B6139; }
+  #white.is-selected { border-color: #CCC; }
+  #eraser.is-selected { color: #333; }
+
   .circle {
-    display: flex;
-    width: 20px;
-    height: 20px;
+    margin: 1px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
-    background-color: #323232;
+    background-color: #000;
+    border: 1px solid #FFF;
   }
   #blue .circle { background-color:#12A1FB; }
   #purple .circle { background-color: #907CFF }
@@ -141,7 +180,7 @@ document.getElementById('width-30').onclick = () => {
   #red .circle { background-color: #EF5533; }
   #gray .circle { background-color: #757575; }
   #brown .circle { background-color: #8B6139; }
-  #white .circle { background-color: #FFF; border: 1px solid #DCDCDC; }
+  #white .circle { background-color: #FFF; border-color: #DCDCDC; }
 
   .stroke-option:hover { cursor: pointer; }
   .stroke-option div { 
