@@ -1,47 +1,58 @@
 <head>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/555a29497b.js" crossorigin="anonymous"></script>
 </head>
 
-<div class="section-title">Stroke Color</div>
 <div class="section-body">
-  <div id="black" class="color-option"><div class="circle"></div></div>
-  <div id="blue" class="color-option"><div class="circle"></div></div>
-  <div id="yellow" class="color-option"><div class="circle"></div></div>
-  <div id="green" class="color-option"><div class="circle"></div></div>
-  <div id="red" class="color-option"><div class="circle"></div></div>
+  <div class="section-row">
+    <div id="blue" class="color-option"><div class="circle"></div></div>
+    <div id="purple" class="color-option"><div class="circle"></div></div>
+    <div id="yellow" class="color-option"><div class="circle"></div></div>
+    <div id="green" class="color-option"><div class="circle"></div></div>
+    <div id="red" class="color-option"><div class="circle"></div></div>
+  </div>
+  <div class="section-row">
+    <div id="black" class="color-option"><div class="circle"></div></div>
+    <div id="gray" class="color-option"><div class="circle"></div></div>
+    <div id="brown" class="color-option"><div class="circle"></div></div>
+    <div id="white" class="color-option"><div class="circle"></div></div>
+    <div id="eraser" class="color-option"><i class="fas fa-eraser"></i></div>
+  </div>
 </div>
+
 <div class="section-divider"></div>
 
-<div class="section-title">Stroke Width</div>
 <div class="section-body">
-  <div id="width-1" class="stroke-option">
-    <div><span class="dot"></span></div>
-    <div>1px</div>
-  </div>
-  <div id="width-3" class="stroke-option">
-    <div><span class="dot dot-3"></span></div>
-    <div>3px</div>
-  </div>
-  <div id="width-5" class="stroke-option">
-    <div><span class="dot dot-5"></span></div>
-    <div>5px</div>
-  </div>
-  <div id="width-8" class="stroke-option">
-    <div><span class="dot dot-8"></span></div>
-    <div>8px</div>
-  </div>
-  <div id="width-10" class="stroke-option">
-    <div><span class="dot dot-10"></span></div>
-    <div>10px</div>
-  </div>
+  <div class="section-row">
+    <div id="width-1" class="stroke-option">
+      <div><span class="dot"></span></div>
+      <div>1px</div>
+    </div>
+    <div id="width-5" class="stroke-option">
+      <div><span class="dot dot-s"></span></div>
+      <div>5px</div>
+    </div>
+    <div id="width-10" class="stroke-option">
+      <div><span class="dot dot-m"></span></div>
+      <div>10px</div>
+    </div>
+    <div id="width-20" class="stroke-option">
+      <div><span class="dot dot-l"></span></div>
+      <div>20px</div>
+    </div>
+    <div id="width-30" class="stroke-option">
+      <div><span class="dot dot-xl"></span></div>
+      <div>30px</div>
+    </div>
+  </div> 
 </div>
 
 <script>
-document.getElementById('black').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-color', r: .2, g: .2, b: .2 } }, '*')
-}
 document.getElementById('blue').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: .07, g: .63, b: .98 } }, '*')
+}
+document.getElementById('purple').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-color', r: .56, g: .49, b: 1 } }, '*')
 }
 document.getElementById('yellow').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: 1, g: .78, b: 0 } }, '*')
@@ -52,20 +63,36 @@ document.getElementById('green').onclick = () => {
 document.getElementById('red').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: .94, g: .33, b: .20 } }, '*')
 }
+document.getElementById('black').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-color', r: .2, g: .2, b: .2 } }, '*')
+}
+document.getElementById('gray').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-color', r: .46, g: .46, b: .46 } }, '*')
+}
+document.getElementById('brown').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-color', r: .55, g: .38, b: .22 } }, '*')
+}
+document.getElementById('white').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-color', r: 1, g: 1, b: 1 } }, '*')
+}
+document.getElementById('eraser').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'eraser' } }, '*')
+}
+
 document.getElementById('width-1').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-width', width: 1 } }, '*')
-}
-document.getElementById('width-3').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-width', width: 3 } }, '*')
 }
 document.getElementById('width-5').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-width', width: 5 } }, '*')
 }
-document.getElementById('width-8').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-width', width: 8 } }, '*')
-}
 document.getElementById('width-10').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-width', width: 10 } }, '*')
+}
+document.getElementById('width-20').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-width', width: 20 } }, '*')
+}
+document.getElementById('width-30').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-width', width: 30 } }, '*')
 }
 </script>
 
@@ -76,49 +103,53 @@ document.getElementById('width-10').onclick = () => {
     margin: 0;
     color: #333;
   }
-  .section-title {
-    display: flex;
-    font-weight: 600;
-    padding: 8px 16px;
-  }
+  .fas { font-size: 22px; color: #757575; }
   .section-body { 
-    display: flex;
     margin-top: 8px; 
     padding: 0px 16px; 
+  }
+  .section-row {
+    display: flex;
     justify-content: space-between;
   }
   .section-divider {
     display: flex;
     height: 1px;
     background-color: #E5E5E5;
-    margin: 24px 0 8px 0;
+    margin: 24px 0;
   }
   .color-option {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 4px;
+    width: 28px;
+    height: 28px;
   }
   .color-option:hover { cursor: pointer; }
   .circle {
     display: flex;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background-color: #323232;
   }
   #blue .circle { background-color:#12A1FB; }
+  #purple .circle { background-color: #907CFF }
   #yellow .circle { background-color: #FFC600; }
   #green .circle { background-color: #1AC37D; }
   #red .circle { background-color: #EF5533; }
+  #gray .circle { background-color: #757575; }
+  #brown .circle { background-color: #8B6139; }
+  #white .circle { background-color: #FFF; border: 1px solid #DCDCDC; }
 
   .stroke-option:hover { cursor: pointer; }
   .stroke-option div { 
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20px; 
-    height: 20px; 
+    width: 40px; 
+    height: 24px; 
   }
   .dot {
     display: flex;
@@ -127,8 +158,8 @@ document.getElementById('width-10').onclick = () => {
     border-radius: 50%;
     background-color: #323232;
   }
-  .dot-3 { width: 6px; height: 6px; }
-  .dot-5 { width: 10px; height: 10px; }
-  .dot-8 { width: 12px; height: 12px; }
-  .dot-10 { width: 16px; height: 16px; }
+  .dot-s { width: 6px; height: 6px; }
+  .dot-m { width: 10px; height: 10px; }
+  .dot-l { width: 14px; height: 14px; }
+  .dot-xl { width: 20px; height: 20px; }
 </style>
