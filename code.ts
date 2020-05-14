@@ -71,10 +71,11 @@ setInterval(() => {
     const lastVertex = nodeInProgress.vectorNetwork.vertices[nodeInProgress.vectorNetwork.vertices.length - 1]
     if (lastVertex.x !== lastX || lastVertex.y !== lastY || lastX === null) {
       for (let i = 0; i < 5; i++) {
-        const sprayDrop: RectangleNode = figma.createRectangle()
+        const sprayDrop: EllipseNode = figma.createEllipse()
         sprayDrop.x = lastVertex.x + nodeInProgress.x + (Math.random() - .5) * 20
         sprayDrop.y = lastVertex.y + nodeInProgress.y + (Math.random() - .5) * 20
-        sprayDrop.resize(2, 2)
+        const radius = .01 + Math.random() * 5
+        sprayDrop.resize(radius, radius)
         sprayDrop.name = 'sprayDrop'
         sprayDrop.opacity = 1
 
@@ -84,7 +85,9 @@ setInterval(() => {
         sprayDrop.strokeWeight = 2
         if (currentColor) {
           const fills = clone(sprayDrop.fills)
-          fills[0].color = currentColor
+          fills[0].color.r = Math.min(Math.max(currentColor.r + (Math.random() -.5) * .2, 0), 1)
+          fills[0].color.g = Math.min(Math.max(currentColor.g + (Math.random() -.5) * .2, 0), 1)
+          fills[0].color.b = Math.min(Math.max(currentColor.b + (Math.random() -.5) * .2, 0), 1)
           sprayDrop.fills = fills
         }
       }
