@@ -28,9 +28,13 @@
       <div><span class="dot"></span></div>
       <span>1px</span>
     </div>
-    <div id="width-5" class="stroke-option">
+    <div id="width-3" class="stroke-option">
       <div><span class="dot dot-s"></span></div>
-      <span>5px</span>
+      <span>3px</span>
+    </div>
+    <div id="width-8" class="stroke-option">
+      <div><span class="dot dot-ms"></span></div>
+      <span>8px</span>
     </div>
     <div id="width-15" class="stroke-option">
       <div><span class="dot dot-m"></span></div>
@@ -40,9 +44,6 @@
       <div><span class="dot dot-l"></span></div>
       <span>25px</span>
     </div>
-    <div id="spray-can" class="stroke-option">
-      <div class="tool-icon"><i class="fas fa-spray-can"></i></div>
-    </div>
   </div> 
 </div>
 
@@ -50,89 +51,83 @@
 <div class="section-body">
   <div class="section-row tools">
     <div id="brush" class="tool-option is-selected"><i class="fas fa-paint-brush"></i></div>
+    <div id="spray-can" class="tool-option"><i class="fas fa-spray-can"></i></div>
     <div id="highlighter" class="tool-option"><i class="fas fa-highlighter"></i></div>
     <div id="eraser" class="tool-option"><i class="fas fa-eraser"></i></div>
+    <div id="placeholder" class="tool-option placeholder"><i class="fas fa-eraser"></i></div>
   </div>
 </div>
 
 
 <script>
-// Can't get this to one to run
-// document.onload = () => {
-//   parent.postMessage({ pluginMessage: { type: 'set-color', r: .2, g: .2, b: .2 } }, '*')
-//   parent.postMessage({ pluginMessage: { type: 'set-width', width: 5 } }, '*')
-//   parent.postMessage({ pluginMessage: { type: 'brush' } }, '*')
-// }
+const colors = {
+  'blue': { r: .07, g: .63, b: .98 },
+  'orange': { r: 1, g: .53, b: .26 },
+  'purple': { r: .56, g: .49, b: 1 },
+  'yellow': { r: 1, g: .78, b: 0 },
+  'green': { r: .1, g: .76, b: .49 },
+  'red': { r: .94, g: .33, b: .20 },
+  'black': { r: .2, g: .2, b: .2 },
+  'gray': { r: .46, g: .46, b: .46 },
+  'brown': { r: .55, g: .38, b: .22 },
+  'white': { r: 1, g: 1, b: 1 },
+}
+
 document.getElementById('blue').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-color', r: .07, g: .63, b: .98 } }, '*')
   updateSelectedColor('blue')
 }
 document.getElementById('orange').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-color', r: 1, g: .53, b: .26 } }, '*')
   updateSelectedColor('orange')
 }
 document.getElementById('purple').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-color', r: .56, g: .49, b: 1 } }, '*')
   updateSelectedColor('purple')
 }
 document.getElementById('yellow').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-color', r: 1, g: .78, b: 0 } }, '*')
   updateSelectedColor('yellow')
 }
 document.getElementById('green').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-color', r: .1, g: .76, b: .49 } }, '*')
   updateSelectedColor('green')
 }
 document.getElementById('red').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-color', r: .94, g: .33, b: .20 } }, '*')
   updateSelectedColor('red')
 }
 document.getElementById('black').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-color', r: .2, g: .2, b: .2 } }, '*')
   updateSelectedColor('black')
 }
 document.getElementById('gray').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-color', r: .46, g: .46, b: .46 } }, '*')
   updateSelectedColor('gray')
 }
 document.getElementById('brown').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-color', r: .55, g: .38, b: .22 } }, '*')
   updateSelectedColor('brown')
 }
 document.getElementById('white').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-color', r: 1, g: 1, b: 1 } }, '*')
   updateSelectedColor('white')
 }
 document.getElementById('width-1').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-width', width: 1 } }, '*')
-  updateSelectedWidth('width-1')
+  updateSelectedWidth(1)
 }
-document.getElementById('width-5').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-width', width: 5 } }, '*')
-  updateSelectedWidth('width-5')
+document.getElementById('width-3').onclick = () => {
+  updateSelectedWidth(3)
+}
+document.getElementById('width-8').onclick = () => {
+  updateSelectedWidth(8)
 }
 document.getElementById('width-15').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-width', width: 15 } }, '*')
-  updateSelectedWidth('width-15')
+  updateSelectedWidth(15)
 }
 document.getElementById('width-25').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-width', width: 25 } }, '*')
-  updateSelectedWidth('width-25')
+  updateSelectedWidth(25)
 }
 document.getElementById('spray-can').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'spray-can' } }, '*')
-  updateSelectedWidth('spray-can')
+  updateSelectedTool('spray-can')
 }
 document.getElementById('eraser').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'eraser' } }, '*')
   updateSelectedTool('eraser')
 }
 document.getElementById('brush').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'brush' } }, '*')
   updateSelectedTool('brush')
 }
 document.getElementById('highlighter').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'highlighter' } }, '*')
   updateSelectedTool('highlighter')
 }
 
@@ -142,13 +137,16 @@ function updateSelectedColor(color) {
     elements[i].classList.remove('is-selected')
   }
   document.getElementById(color).classList.add('is-selected')
+  const colorObject = colors[color]
+  parent.postMessage({ pluginMessage: { type: 'set-color', r: colorObject.r, b: colorObject.b, g: colorObject.g }}, '*')
 }
 function updateSelectedWidth(width) {
   const elements = document.getElementsByClassName('stroke-option')
   for (let i = 0; i < elements.length; i++) {
     elements[i].classList.remove('is-selected')
   }
-  document.getElementById(width).classList.add('is-selected')
+  document.getElementById(`width-${width}`).classList.add('is-selected')
+  parent.postMessage({ pluginMessage: { type: 'set-width', width } }, '*')
 }
 function updateSelectedTool(tool) {
   const elements = document.getElementsByClassName('tool-option')
@@ -156,7 +154,13 @@ function updateSelectedTool(tool) {
     elements[i].classList.remove('is-selected')
   }
   document.getElementById(tool).classList.add('is-selected')
+  parent.postMessage({ pluginMessage: { type: 'set-tool', tool } }, '*')
 }
+
+updateSelectedColor('black')
+updateSelectedWidth(3)
+updateSelectedTool('brush')
+
 </script>
 
 <style>
@@ -180,7 +184,7 @@ function updateSelectedTool(tool) {
     justify-content: space-between;
     margin-bottom: 8px;
   }
-  .section-row.tools { justify-content: flex-start; }
+  .section-row.tools { justify-content: space-between; }
   .section-divider {
     display: flex;
     height: 1px;
@@ -193,6 +197,9 @@ function updateSelectedTool(tool) {
     height: 26px;
     border-radius: 50%;
     border: 2px solid #FFF;
+  }
+  .placeholder {
+    visibility: hidden;
   }
   .color-option:hover, .tool-option:hover { cursor: pointer; }
   #blue.is-selected { border-color: #12A1FB; }
@@ -251,7 +258,8 @@ function updateSelectedTool(tool) {
     border-radius: 50%;
     background-color: #323232;
   }
-  .dot-s { width: 6px; height: 6px; }
+  .dot-s { width: 4px; height: 4px; }
+  .dot-ms { width: 6px; height: 6px; }
   .dot-m { width: 10px; height: 10px; }
   .dot-l { width: 14px; height: 14px; }
   .dot-xl { width: 20px; height: 20px; }

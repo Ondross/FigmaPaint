@@ -6,8 +6,7 @@ function clone(val) {
 let colorWatcher;
 let currentColor = null;
 let currentWidth = 1;
-let eraser = false;
-let sprayCan = false;
+let tool = 'brush';
 let nodeInProgress = null;
 let lastX = null;
 let lastY = null;
@@ -30,37 +29,51 @@ setInterval(() => {
     if (!newNode) {
         return;
     }
-    newNode.strokeWeight = currentWidth;
-    newNode.opacity = 1;
-    if (eraser) {
-        newNode.name = 'eraser';
-        currentColor = newNode.parent.backgrounds[0].color;
+    let color = currentColor;
+    if (tool === 'brush') {
+        newNode.opacity = 1;
     }
-    if (sprayCan) {
+    else if (tool === 'eraser') {
+        newNode.opacity = 1;
+        newNode.name = 'eraser';
+        color = newNode.parent.backgrounds[0].color;
+    }
+    else if (tool === 'spray-can') {
         newNode.opacity = 0;
     }
+    else if (tool === 'highlighter') {
+        newNode.opacity = .5;
+    }
+    else {
+        console.log(`unknown tool ${tool}`);
+    }
+    newNode.strokeWeight = currentWidth;
     nodeInProgress = newNode;
-    if (currentColor) {
+    if (color) {
         const strokes = clone(newNode.strokes);
-        strokes[0].color = currentColor;
+        strokes[0].color = color;
         newNode.strokes = strokes;
     }
     existingNodeIds.push(newNode.id);
 }, 100);
 setInterval(() => {
-    if (sprayCan && nodeInProgress && !nodeInProgress.removed && nodeInProgress.vectorNetwork.vertices.length > 0) {
-        const lastVertex = nodeInProgress.vectorNetwork.vertices[nodeInProgress.vectorNetwork.vertices.length - 1];
-        if (lastVertex.x !== lastX || lastVertex.y !== lastY || lastX === null) {
+    if (tool === 'spray-can' && nodeInProgress && !nodeInProgress.removed) {
+        const vertices = nodeInProgress.vectorNetwork.vertices;
+        const lastVertex = vertices[vertices.length - 1];
+        const x = lastVertex ? (lastVertex.x + nodeInProgress.x) : nodeInProgress.x;
+        const y = lastVertex ? (lastVertex.y + nodeInProgress.y) : nodeInProgress.y;
+        if (x !== lastX || y !== lastY || lastX === null) {
             for (let i = 0; i < 5; i++) {
                 const sprayDrop = figma.createEllipse();
-                sprayDrop.x = lastVertex.x + nodeInProgress.x + (Math.random() - .5) * 20;
-                sprayDrop.y = lastVertex.y + nodeInProgress.y + (Math.random() - .5) * 20;
+                sprayDrop.x = x + (Math.random() - .5) * (currentWidth * 2);
+                sprayDrop.y = y + (Math.random() - .5) * (currentWidth * 2);
                 const radius = .01 + Math.random() * 5;
                 sprayDrop.resize(radius, radius);
                 sprayDrop.name = 'sprayDrop';
                 sprayDrop.opacity = 1;
-                lastX = lastVertex.x;
-                lastY = lastVertex.y;
+                lastX = x;
+                lastY = y;
+                console.log;
                 sprayDrop.strokeWeight = 2;
                 if (currentColor) {
                     const fills = clone(sprayDrop.fills);
@@ -74,19 +87,17 @@ setInterval(() => {
     }
 }, 10);
 figma.ui.onmessage = msg => {
+    nodeInProgress = null;
     if (msg.type === 'set-color') {
         currentColor = { r: msg.r, g: msg.g, b: msg.b };
-        eraser = false;
+        if (tool === 'eraser') {
+            tool = 'brush';
+        }
     }
     if (msg.type === 'set-width') {
         currentWidth = msg.width;
-        sprayCan = false;
     }
-    if (msg.type === 'eraser') {
-        eraser = true;
-    }
-    if (msg.type === 'spray-can') {
-        sprayCan = true;
-        nodeInProgress = null;
+    if (msg.type === 'set-tool') {
+        tool = msg.tool;
     }
 };
