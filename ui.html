@@ -57,6 +57,12 @@
 
 
 <script>
+// Can't get this to one to run
+// document.onload = () => {
+//   parent.postMessage({ pluginMessage: { type: 'set-color', r: .2, g: .2, b: .2 } }, '*')
+//   parent.postMessage({ pluginMessage: { type: 'set-width', width: 5 } }, '*')
+//   parent.postMessage({ pluginMessage: { type: 'brush' } }, '*')
+// }
 document.getElementById('blue').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: .07, g: .63, b: .98 } }, '*')
   updateSelectedColor('blue')
@@ -97,7 +103,6 @@ document.getElementById('white').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: 1, g: 1, b: 1 } }, '*')
   updateSelectedColor('white')
 }
-
 document.getElementById('width-1').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-width', width: 1 } }, '*')
   updateSelectedWidth('width-1')
