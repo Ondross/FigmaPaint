@@ -11,12 +11,6 @@ type Color = {
   b: number
 }
 
-// Create a dummy node so that we can read our session ID and use that
-// to identify other nodes created by us.
-const node = figma.createRectangle()
-const sessionId = node.id.split(':')[0]
-node.remove()
-
 let colorWatcher: number
 let currentColor: Color | null = null
 let currentWidth: number = 1
@@ -28,6 +22,13 @@ let lastY: number | null = null
 
 let existingNodeIds: string[] = figma.currentPage.findAll(node => node.type === "VECTOR").map(node => node.id)
 setInterval(() => {
+
+  // Create a dummy node so that we can read our session ID and use that
+  // to identify other nodes created by us.
+  const node = figma.createRectangle()
+  const sessionId = node.id.split(':')[0]
+  node.remove()
+
   const newNode = figma.currentPage.findOne(node => {
     // Must be undeleted, a vector, and created by this user.
     if (node.removed || node.type !== "VECTOR" || !node.id.startsWith(sessionId) || node.name === 'sprayDrop') {

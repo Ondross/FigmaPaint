@@ -3,11 +3,6 @@ figma.showUI(__html__);
 function clone(val) {
     return JSON.parse(JSON.stringify(val));
 }
-// Create a dummy node so that we can read our session ID and use that
-// to identify other nodes created by us.
-const node = figma.createRectangle();
-const sessionId = node.id.split(':')[0];
-node.remove();
 let colorWatcher;
 let currentColor = null;
 let currentWidth = 1;
@@ -18,6 +13,11 @@ let lastX = null;
 let lastY = null;
 let existingNodeIds = figma.currentPage.findAll(node => node.type === "VECTOR").map(node => node.id);
 setInterval(() => {
+    // Create a dummy node so that we can read our session ID and use that
+    // to identify other nodes created by us.
+    const node = figma.createRectangle();
+    const sessionId = node.id.split(':')[0];
+    node.remove();
     const newNode = figma.currentPage.findOne(node => {
         // Must be undeleted, a vector, and created by this user.
         if (node.removed || node.type !== "VECTOR" || !node.id.startsWith(sessionId) || node.name === 'sprayDrop') {
