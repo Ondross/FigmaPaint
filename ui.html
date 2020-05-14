@@ -26,23 +26,23 @@
   <div class="section-row">
     <div id="width-1" class="stroke-option">
       <div><span class="dot"></span></div>
-      <div>1px</div>
+      <span>1px</span>
     </div>
     <div id="width-5" class="stroke-option">
       <div><span class="dot dot-s"></span></div>
-      <div>5px</div>
+      <span>5px</span>
     </div>
     <div id="width-10" class="stroke-option">
       <div><span class="dot dot-m"></span></div>
-      <div>10px</div>
+      <span>10px</span>
     </div>
     <div id="width-20" class="stroke-option">
       <div><span class="dot dot-l"></span></div>
-      <div>20px</div>
+      <span>20px</span>
     </div>
     <div id="width-30" class="stroke-option">
       <div><span class="dot dot-xl"></span></div>
-      <div>30px</div>
+      <span>30px</span>
     </div>
   </div> 
 </div>
@@ -100,18 +100,23 @@ document.getElementById('eraser').onclick = () => {
 }
 document.getElementById('width-1').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-width', width: 1 } }, '*')
+  updateSelectedWidth('width-1')
 }
 document.getElementById('width-5').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-width', width: 5 } }, '*')
+  updateSelectedWidth('width-5')
 }
 document.getElementById('width-10').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-width', width: 10 } }, '*')
+  updateSelectedWidth('width-10')
 }
 document.getElementById('width-20').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-width', width: 20 } }, '*')
+  updateSelectedWidth('width-20')
 }
 document.getElementById('width-30').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-width', width: 30 } }, '*')
+  updateSelectedWidth('width-30')
 }
 
 function updateSelectedColor(color) {
@@ -120,6 +125,13 @@ function updateSelectedColor(color) {
     elements[i].classList.remove('is-selected')
   }
   document.getElementById(color).classList.add('is-selected')
+}
+function updateSelectedWidth(width) {
+  const elements = document.getElementsByClassName('stroke-option')
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].classList.remove('is-selected')
+  }
+  document.getElementById(width).classList.add('is-selected')
 }
 </script>
 
@@ -153,7 +165,6 @@ function updateSelectedColor(color) {
     border: 2px solid #FFF;
   }
   .color-option:hover { cursor: pointer; }
-
   #blue.is-selected { border-color: #12A1FB; }
   #purple.is-selected { border-color: #907CFF; }
   #yellow.is-selected { border-color: #FFC600; }
@@ -182,16 +193,23 @@ function updateSelectedColor(color) {
   #brown .circle { background-color: #8B6139; }
   #white .circle { background-color: #FFF; border-color: #DCDCDC; }
 
-  .stroke-option:hover { cursor: pointer; }
-  .stroke-option div { 
+  .stroke-option {
+    border-radius: 3px;
+    border: 1px solid #FFF;
+  }
+  .stroke-option:hover { cursor: pointer; border-color: #E2E2E2; }
+  .stroke-option.is-selected { border-color: #999; }
+  .stroke-option div, span { 
     display: flex;
     justify-content: center;
     align-items: center;
     width: 40px; 
-    height: 24px; 
+    height: 18px; 
   }
+  .stroke-option div { height: 30px; }
   .dot {
     display: flex;
+    margin: 4px;
     width: 3px;
     height: 3px;
     border-radius: 50%;
