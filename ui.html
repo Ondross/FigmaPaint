@@ -130,15 +130,20 @@ function updateSelectedWidth(width) {
     font-size: 11px;
     margin: 0;
     color: #333;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;   
   }
   .fas { font-size: 22px; color: #AEAEAE; }
   .section-body { 
-    margin-top: 24px; 
+    margin-top: 18px; 
     padding: 0px 16px; 
   }
   .section-row {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 8px;
   }
   .section-divider {
     display: flex;
@@ -187,7 +192,9 @@ function updateSelectedWidth(width) {
     border-radius: 3px;
     border: 2px solid #FFF;
   }
+  .stroke-option i { font-size: 24px; }
   .stroke-option:hover { cursor: pointer; border-color: #E2E2E2; }
+  .stroke-option:hover i { color: #999; }
   .stroke-option.is-selected { border-color: #CCC; }
   .stroke-option div, span { 
     display: flex;
