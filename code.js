@@ -1,5 +1,5 @@
 // This shows the HTML page in "ui.html".
-figma.showUI(__html__, { width: 280, height: 220 });
+figma.showUI(__html__, { width: 280, height: 300 });
 function clone(val) {
     return JSON.parse(JSON.stringify(val));
 }

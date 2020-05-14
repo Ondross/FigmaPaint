@@ -7,16 +7,16 @@
   <div class="section-row">
     <div id="blue" class="color-option"><div class="circle"></div></div>
     <div id="purple" class="color-option"><div class="circle"></div></div>
-    <div id="yellow" class="color-option"><div class="circle"></div></div>
     <div id="green" class="color-option"><div class="circle"></div></div>
-    <div id="red" class="color-option"><div class="circle"></div></div>
+    <div id="orange" class="color-option"><div class="circle"></div></div>
+    <div id="yellow" class="color-option"><div class="circle"></div></div>
   </div>
   <div class="section-row">
     <div id="black" class="color-option"><div class="circle"></div></div>
     <div id="gray" class="color-option"><div class="circle"></div></div>
     <div id="brown" class="color-option"><div class="circle"></div></div>
     <div id="white" class="color-option"><div class="circle"></div></div>
-    <div id="eraser" class="color-option"><i class="fas fa-eraser"></i></div>
+    <div id="red" class="color-option"><div class="circle"></div></div>
   </div>
 </div>
 
@@ -46,10 +46,24 @@
   </div> 
 </div>
 
+<div class="section-divider"></div>
+<div class="section-body">
+  <div class="section-row tools">
+    <div id="brush" class="tool-option is-selected"><i class="fas fa-paint-brush"></i></div>
+    <div id="highlighter" class="tool-option"><i class="fas fa-highlighter"></i></div>
+    <div id="eraser" class="tool-option"><i class="fas fa-eraser"></i></div>
+  </div>
+</div>
+
+
 <script>
 document.getElementById('blue').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: .07, g: .63, b: .98 } }, '*')
   updateSelectedColor('blue')
+}
+document.getElementById('orange').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-color', r: 1, g: .53, b: .26 } }, '*')
+  updateSelectedColor('orange')
 }
 document.getElementById('purple').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: .56, g: .49, b: 1 } }, '*')
@@ -83,10 +97,7 @@ document.getElementById('white').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-color', r: 1, g: 1, b: 1 } }, '*')
   updateSelectedColor('white')
 }
-document.getElementById('eraser').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'eraser' } }, '*')
-  updateSelectedColor('eraser')
-}
+
 document.getElementById('width-1').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-width', width: 1 } }, '*')
   updateSelectedWidth('width-1')
@@ -107,6 +118,18 @@ document.getElementById('spray-can').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'spray-can' } }, '*')
   updateSelectedWidth('spray-can')
 }
+document.getElementById('eraser').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'eraser' } }, '*')
+  updateSelectedTool('eraser')
+}
+document.getElementById('brush').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'brush' } }, '*')
+  updateSelectedTool('brush')
+}
+document.getElementById('highlighter').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'highlighter' } }, '*')
+  updateSelectedTool('highlighter')
+}
 
 function updateSelectedColor(color) {
   const elements = document.getElementsByClassName('color-option')
@@ -122,6 +145,13 @@ function updateSelectedWidth(width) {
   }
   document.getElementById(width).classList.add('is-selected')
 }
+function updateSelectedTool(tool) {
+  const elements = document.getElementsByClassName('tool-option')
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].classList.remove('is-selected')
+  }
+  document.getElementById(tool).classList.add('is-selected')
+}
 </script>
 
 <style>
@@ -135,7 +165,7 @@ function updateSelectedWidth(width) {
     -ms-user-select: none;      /* IE 10+ */
     user-select: none;   
   }
-  .fas { font-size: 22px; color: #AEAEAE; }
+  .fas { font-size: 20px; color: #AEAEAE; }
   .section-body { 
     margin-top: 18px; 
     padding: 0px 16px; 
@@ -145,21 +175,23 @@ function updateSelectedWidth(width) {
     justify-content: space-between;
     margin-bottom: 8px;
   }
+  .section-row.tools { justify-content: flex-start; }
   .section-divider {
     display: flex;
     height: 1px;
     background-color: #E5E5E5;
     margin: 24px 0 8px 0;
   }
-  .color-option {
+  .color-option, .tool-option {
     margin: 4px;
     width: 26px;
     height: 26px;
     border-radius: 50%;
     border: 2px solid #FFF;
   }
-  .color-option:hover { cursor: pointer; }
+  .color-option:hover, .tool-option:hover { cursor: pointer; }
   #blue.is-selected { border-color: #12A1FB; }
+  #orange.is-selected { border-color: #FF8743;}
   #purple.is-selected { border-color: #907CFF; }
   #yellow.is-selected { border-color: #FFC600; }
   #green.is-selected { border-color: #1AC37D; }
@@ -180,6 +212,7 @@ function updateSelectedWidth(width) {
     border: 1px solid #FFF;
   }
   #blue .circle { background-color:#12A1FB; }
+  #orange .circle { background-color: #FF8743;}
   #purple .circle { background-color: #907CFF }
   #yellow .circle { background-color: #FFC600; }
   #green .circle { background-color: #1AC37D; }
@@ -188,14 +221,14 @@ function updateSelectedWidth(width) {
   #brown .circle { background-color: #8B6139; }
   #white .circle { background-color: #FFF; border-color: #DCDCDC; }
 
-  .stroke-option {
+  .stroke-option, .tool-option {
     border-radius: 3px;
     border: 2px solid #FFF;
   }
   .stroke-option i { font-size: 24px; }
-  .stroke-option:hover { cursor: pointer; border-color: #E2E2E2; }
-  .stroke-option:hover i { color: #999; }
-  .stroke-option.is-selected { border-color: #CCC; }
+  .stroke-option:hover, .tool-option:hover { cursor: pointer; border-color: #E2E2E2; }
+  .stroke-option:hover i, .tool-option:hover i { color: #999; }
+  .stroke-option.is-selected, .tool-option.is-selected { border-color: #CCC; }
   .stroke-option div, span { 
     display: flex;
     justify-content: center;
@@ -217,4 +250,12 @@ function updateSelectedWidth(width) {
   .dot-m { width: 10px; height: 10px; }
   .dot-l { width: 14px; height: 14px; }
   .dot-xl { width: 20px; height: 20px; }
+
+  .tool-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+  }
+  .tool-option.is-selected i { color: #333; }
 </style>
