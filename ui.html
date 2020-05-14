@@ -32,29 +32,18 @@
       <div><span class="dot dot-s"></span></div>
       <span>5px</span>
     </div>
-    <div id="width-10" class="stroke-option">
+    <div id="width-15" class="stroke-option">
       <div><span class="dot dot-m"></span></div>
-      <span>10px</span>
+      <span>15px</span>
     </div>
-    <div id="width-20" class="stroke-option">
+    <div id="width-25" class="stroke-option">
       <div><span class="dot dot-l"></span></div>
-      <span>20px</span>
+      <span>25px</span>
     </div>
-    <div id="width-30" class="stroke-option">
-      <div><span class="dot dot-xl"></span></div>
-      <span>30px</span>
+    <div id="spray-can" class="stroke-option">
+      <div class="tool-icon"><i class="fas fa-spray-can"></i></div>
     </div>
   </div> 
-</div>
-
-<div class="section-divider"></div>
-
-<div class="section-body">
-  <div class="section-row">
-    <i class="fas fa-pencil-alt"></i>
-    <i class="fas fa-spray-can"></i>
-    <div style="width: 100%; height: 40px;"></div>
-  </div>
 </div>
 
 <script>
@@ -106,17 +95,17 @@ document.getElementById('width-5').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'set-width', width: 5 } }, '*')
   updateSelectedWidth('width-5')
 }
-document.getElementById('width-10').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-width', width: 10 } }, '*')
-  updateSelectedWidth('width-10')
+document.getElementById('width-15').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-width', width: 15 } }, '*')
+  updateSelectedWidth('width-15')
 }
-document.getElementById('width-20').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-width', width: 20 } }, '*')
-  updateSelectedWidth('width-20')
+document.getElementById('width-25').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'set-width', width: 25 } }, '*')
+  updateSelectedWidth('width-25')
 }
-document.getElementById('width-30').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'set-width', width: 30 } }, '*')
-  updateSelectedWidth('width-30')
+document.getElementById('spray-can').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'spray-can' } }, '*')
+  updateSelectedWidth('spray-can')
 }
 
 function updateSelectedColor(color) {
@@ -174,7 +163,8 @@ function updateSelectedWidth(width) {
   #gray.is-selected { border-color: #757575; }
   #brown.is-selected { border-color: #8B6139; }
   #white.is-selected { border-color: #CCC; }
-  #eraser.is-selected { color: #333; }
+  #eraser.is-selected i { color: #333; }
+  #spray-can.is-selected i { color: #333; }
 
   .circle {
     margin: 1px;
@@ -195,18 +185,19 @@ function updateSelectedWidth(width) {
 
   .stroke-option {
     border-radius: 3px;
-    border: 1px solid #FFF;
+    border: 2px solid #FFF;
   }
   .stroke-option:hover { cursor: pointer; border-color: #E2E2E2; }
-  .stroke-option.is-selected { border-color: #999; }
+  .stroke-option.is-selected { border-color: #CCC; }
   .stroke-option div, span { 
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px; 
+    width: 34px; 
     height: 18px; 
   }
   .stroke-option div { height: 30px; }
+  .stroke-option div.tool-icon { height: 48px; }
   .dot {
     display: flex;
     margin: 4px;
