@@ -46,7 +46,7 @@ setInterval(() => {
         newNode.opacity = .5;
     }
     else {
-        console.log(`unknown tool ${tool}`);
+        console.error(`unknown tool ${tool}`);
     }
     newNode.strokeWeight = currentWidth;
     nodeInProgress = newNode;
@@ -66,6 +66,7 @@ setInterval(() => {
         if (x !== lastX || y !== lastY || lastX === null) {
             for (let i = 0; i < 5; i++) {
                 const sprayDrop = figma.createEllipse();
+                nodeInProgress.parent.appendChild(sprayDrop);
                 sprayDrop.x = x + (Math.random() - .5) * (currentWidth * 2);
                 sprayDrop.y = y + (Math.random() - .5) * (currentWidth * 2);
                 const radius = .01 + Math.random() * 5;

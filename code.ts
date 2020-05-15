@@ -61,7 +61,7 @@ setInterval(() => {
   } else if (tool === 'highlighter') {
     newNode.opacity = .5
   } else {
-    console.log(`unknown tool ${tool}`)
+    console.error(`unknown tool ${tool}`)
   }
   
   newNode.strokeWeight = currentWidth
@@ -85,6 +85,7 @@ setInterval(() => {
     if (x !== lastX || y !== lastY || lastX === null) {
       for (let i = 0; i < 5; i++) {
         const sprayDrop: EllipseNode = figma.createEllipse()
+        nodeInProgress.parent.appendChild(sprayDrop)
         sprayDrop.x = x + (Math.random() - .5) * (currentWidth * 2)
         sprayDrop.y = y + (Math.random() - .5) * (currentWidth * 2)
         const radius = .01 + Math.random() * 5
