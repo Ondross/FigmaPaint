@@ -10,7 +10,8 @@ let tool = 'brush';
 let nodeInProgress = null;
 let lastX = null;
 let lastY = null;
-let existingNodeIds = figma.currentPage.findAll(node => node.type === "VECTOR").map(node => node.id);
+let existingNodeIds = {};
+figma.root.findAll(node => node.type === "VECTOR").forEach(node => existingNodeIds[node.id] = true);
 setInterval(() => {
     // Create a dummy node so that we can read our session ID and use that
     // to identify other nodes created by us.
@@ -23,7 +24,7 @@ setInterval(() => {
             return false;
         }
         // Must be "new", meaning we haven't seen it yet.
-        return existingNodeIds.indexOf(node.id) === -1;
+        return !existingNodeIds[node.id];
         return false;
     });
     if (!newNode) {
@@ -54,7 +55,7 @@ setInterval(() => {
         strokes[0].color = color;
         newNode.strokes = strokes;
     }
-    existingNodeIds.push(newNode.id);
+    existingNodeIds[newNode.id] = true;
 }, 100);
 setInterval(() => {
     if (tool === 'spray-can' && nodeInProgress && !nodeInProgress.removed) {

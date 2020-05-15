@@ -19,7 +19,12 @@ let nodeInProgress: VectorNode | null = null
 let lastX: number | null = null
 let lastY: number | null = null
 
-let existingNodeIds: string[] = figma.currentPage.findAll(node => node.type === "VECTOR").map(node => node.id)
+interface NodeMap {
+  [nodeId: string]: boolean;
+}
+let existingNodeIds: NodeMap = {}
+figma.root.findAll(node => node.type === "VECTOR").forEach(node => existingNodeIds[node.id] = true)
+
 setInterval(() => {
 
   // Create a dummy node so that we can read our session ID and use that
@@ -35,7 +40,7 @@ setInterval(() => {
     }
 
     // Must be "new", meaning we haven't seen it yet.
-    return existingNodeIds.indexOf(node.id) === -1
+    return !existingNodeIds[node.id]
 
     return false
   }) as VectorNode
@@ -68,7 +73,7 @@ setInterval(() => {
     newNode.strokes = strokes
   }
 
-  existingNodeIds.push(newNode.id)
+  existingNodeIds[newNode.id] = true
 }, 100)
 
 setInterval(() => {
