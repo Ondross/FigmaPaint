@@ -72,7 +72,7 @@ setInterval(() => {
   existingNodeIds.add(newNode.id)
 }, 100)
 
-setInterval(() => {
+const spray = () => {
   if (tool === 'spray-can' && nodeInProgress && !nodeInProgress.removed) {
     const vertices = nodeInProgress.vectorNetwork.vertices
     const lastVertex = vertices[vertices.length - 1]
@@ -91,7 +91,6 @@ setInterval(() => {
 
         lastX = x
         lastY = y
-        console.log
 
         sprayDrop.strokeWeight = 2
         if (currentColor) {
@@ -104,7 +103,9 @@ setInterval(() => {
       }
     }
   }
-}, 10)
+}
+
+let sprayInterval
 
 figma.ui.onmessage = msg => {
   nodeInProgress = null
@@ -120,5 +121,11 @@ figma.ui.onmessage = msg => {
   }
   if (msg.type === 'set-tool') {
     tool = msg.tool
+
+    if (tool === 'spray-can') {
+      sprayInterval = setInterval(spray, 10)
+    } else {
+      clearInterval(sprayInterval)
+    }
   }
 }
