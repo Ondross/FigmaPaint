@@ -131,6 +131,7 @@ document.getElementById('highlighter').onclick = () => {
   updateSelectedTool('highlighter')
 }
 
+let erasing = false
 function updateSelectedColor(color) {
   const elements = document.getElementsByClassName('color-option')
   for (let i = 0; i < elements.length; i++) {
@@ -139,6 +140,10 @@ function updateSelectedColor(color) {
   document.getElementById(color).classList.add('is-selected')
   const colorObject = colors[color]
   parent.postMessage({ pluginMessage: { type: 'set-color', r: colorObject.r, b: colorObject.b, g: colorObject.g }}, '*')
+
+  if (erasing) {
+    updateSelectedTool('brush')
+  }
 }
 function updateSelectedWidth(width) {
   const elements = document.getElementsByClassName('stroke-option')
@@ -155,6 +160,8 @@ function updateSelectedTool(tool) {
   }
   document.getElementById(tool).classList.add('is-selected')
   parent.postMessage({ pluginMessage: { type: 'set-tool', tool } }, '*')
+
+  erasing = tool === 'eraser'
 }
 
 updateSelectedColor('black')
