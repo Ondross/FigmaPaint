@@ -19,11 +19,7 @@ let nodeInProgress: VectorNode | null = null
 let lastX: number | null = null
 let lastY: number | null = null
 
-interface NodeMap {
-  [nodeId: string]: boolean;
-}
-let existingNodeIds: NodeMap = {}
-figma.root.findAll(node => node.type === "VECTOR").forEach(node => existingNodeIds[node.id] = true)
+let existingNodeIds = new Set(figma.root.findAll(node => node.type === "VECTOR").map(node => node.id))
 
 setInterval(() => {
 
@@ -40,7 +36,7 @@ setInterval(() => {
     }
 
     // Must be "new", meaning we haven't seen it yet.
-    return !existingNodeIds[node.id]
+    return !existingNodeIds.has(node.id)
 
     return false
   }) as VectorNode
@@ -73,7 +69,7 @@ setInterval(() => {
     newNode.strokes = strokes
   }
 
-  existingNodeIds[newNode.id] = true
+  existingNodeIds.add(newNode.id)
 }, 100)
 
 setInterval(() => {
